@@ -16,7 +16,7 @@ public class LoginSteps{
    
    @Given("^I am on login page$")
    public void i_am_on_login_page() {
-	   System.setProperty("webdriver.chrome.driver","D:\\chromedriver.exe");
+	   System.setProperty("webdriver.chrome.driver","drivers\\chromedriver.exe");
 	   driver = new ChromeDriver();
 	   driver.manage().window().maximize();
 	   driver.manage().timeouts().implicitlyWait(30,TimeUnit.SECONDS);
@@ -24,19 +24,17 @@ public class LoginSteps{
    }
    
    @When("^I login with valid user credentials$")
-   public void i_login_with_valid_user_credentials(
-                                           DataTable dataTable)
+   public void i_login_with_valid_user_credentials(DataTable dataTable)
    {
       loginPage = new LoginPage(driver);
-      Map<String, String> dataMap 
-                            = loginPage.getDataAsMap(dataTable);
+      Map<String, String> dataMap = loginPage.getDataAsMap(dataTable);
       loginPage.loginWithValidCredentials(dataMap);
    }
-@Then("^I can login successfully$")
+   
+   @Then("^I can login successfully$")
    public void i_can_login_successfully() 
    {
-      Assert.assertTrue(loginPage.verifySuccessfullLogin(),
-                       "Have issue with Login");
+      Assert.assertTrue(loginPage.verifySuccessfullLogin(),"Have issue with Login");
       driver.close();
    }
 }
